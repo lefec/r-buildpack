@@ -116,7 +116,7 @@ func (s *Supplier) InstallPackages(packages_to_install Packages) error {
 			}
 			src.CranMirror = fmt.Sprintf("%s/%s", "file://", vendorPath)
 		}
-		cmd := exec.Command("R", "--vanilla", "-e", fmt.Sprintf("install.packages(c(\"%s\"), repos=\"%s\", dependencies=TRUE, Ncpus=%d)\n", packageArg, src.CranMirror, src.Ncpus))
+		cmd := exec.Command("R", "--vanilla", "-e", fmt.Sprintf("install.packages(c(\"%s\"), repos=\"%s\", dependencies=c('Depends' 'Imports'), Ncpus=%d)\n", packageArg, src.CranMirror, src.Ncpus))
 		cmd.Stdout = s.Log.Output()
 		cmd.Stderr = s.Log.Output()
 		cmd.Dir = s.Stager.BuildDir()
